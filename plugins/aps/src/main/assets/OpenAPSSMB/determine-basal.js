@@ -469,8 +469,9 @@ function activityMonitor(profile, bg, target_bg)
     var activity_weight = profile.activity_weight;
     var inactivity_weight = profile.inactivity_weight;
     var activityRatio = 1;
-    //var activity_idle_start = profile.activity_idle_start;
-    //var activity_idle_end = profile.activity_idle_end;
+    var no_inactivity_detection = profile.nightly_inactivity_detection;
+    var activity_idle_start = profile.activity_idle_start;
+    var activity_idle_end = profile.activity_idle_end;
 
     if ( !activityDetection ) {
         console.log("Activity monitor disabled in settings");
@@ -481,10 +482,10 @@ function activityMonitor(profile, bg, target_bg)
     } else {
         if ( time_since_start < 60 && recentSteps60Minutes <= 200 ) {
             console.log("Activity monitor initialising for "+(60-time_since_start)+" more minutes");
-        //} else if ( ( activity_idle_start>activity_idle_end && ( now>=activity_idle_start || now<activity_idle_end ) ) // includes midnight
-        //    || ( now>=activity_idle_start && now<activity_idle_end)                                                    // excludes midnight
-        //    && recentSteps60Minutes <= 200 ) {
-        //    console.log("Activity monitor disabled: sleeping hours");
+        } else if ( ( activity_idle_start>activity_idle_end && ( now>=activity_idle_start || now<activity_idle_end ) ) // includes midnight
+            || ( now>=activity_idle_start && now<activity_idle_end)                                                    // excludes midnight
+            && recentSteps60Minutes <= 200 && nightly_inactivity_detection ) {
+            console.log("Activity monitor disabled: sleeping hours");
         } else if ( recentSteps5Minutes > 300 || recentSteps10Minutes > 300  || recentSteps15Minutes > 300  || recentSteps30Minutes > 1500 || recentSteps60Minutes > 2500 ) {
             //stepActivityDetected = true;
             activityRatio = 1 - 0.3 * activity_weight;
