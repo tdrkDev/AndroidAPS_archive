@@ -207,6 +207,7 @@
 
             <app.aaps.core.validators.ValidatingEditTextPreference
                 android:defaultValue="10"
+                android:dependency="@string/key_nightly_inactivity_detection"
                 android:dialogMessage="@string/activity_idle_start_summary"
                 android:digits="0123456789"
                 android:inputType="number"
@@ -220,6 +221,7 @@
 
             <app.aaps.core.validators.ValidatingEditTextPreference
                 android:defaultValue="6"
+                android:dependency="@string/key_nightly_inactivity_detection"
                 android:dialogMessage="@string/activity_idle_end_summary"
                 android:digits="0123456789"
                 android:inputType="number"
