@@ -173,7 +173,7 @@
                 android:title="@string/activity_detection_title" />
 
             <app.aaps.core.validators.ValidatingEditTextPreference
-                android:defaultValue="0.0"
+                android:defaultValue="1.0"
                 android:dependency="@string/key_activity_detection"
                 android:dialogMessage="@string/activity_weight_summary"
                 android:digits="0123456789.,"
@@ -182,12 +182,12 @@
                 android:selectAllOnFocus="true"
                 android:singleLine="true"
                 android:title="@string/activity_weight_title"
-                validate:floatmaxNumber="1.0"
+                validate:floatmaxNumber="1.5"
                 validate:floatminNumber="0.0"
                 validate:testType="floatNumericRange" />
 
             <app.aaps.core.validators.ValidatingEditTextPreference
-                android:defaultValue="0.0"
+                android:defaultValue="1.0"
                 android:dependency="@string/key_activity_detection"
                 android:dialogMessage="@string/inactivity_weight_summary"
                 android:digits="0123456789.,"
@@ -196,7 +196,7 @@
                 android:selectAllOnFocus="true"
                 android:singleLine="true"
                 android:title="@string/inactivity_weight_title"
-                validate:floatmaxNumber="1.0"
+                validate:floatmaxNumber="1.5"
                 validate:floatminNumber="0.0"
                 validate:testType="floatNumericRange" />
 
@@ -209,7 +209,7 @@
                 android:title="@string/nightly_inactivity_detection_title" />
 
             <app.aaps.core.validators.ValidatingEditTextPreference
-                android:defaultValue="10"
+                android:defaultValue="22"
                 android:dependency="@string/key_nightly_inactivity_detection"
                 android:dialogMessage="@string/activity_idle_start_summary"
                 android:digits="0123456789"
