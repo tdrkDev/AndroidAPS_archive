@@ -452,10 +452,10 @@ function determine_varSMBratio(profile, bg, target_bg, loop_wanted_smb)
 function activityMonitor(profile, bg, target_bg)
 {
     // Time - not used without sleep window
-    //var now = new Date().getHours();
-    //if (now < 1) {
-    //    now = 1;
-    //}
+    var now = new Date().getHours();
+    if (now < 1) {
+        now = 1;
+    }
 
     // Activity detection (steps)
     var activityDetection = profile.activity_detection;
@@ -469,7 +469,7 @@ function activityMonitor(profile, bg, target_bg)
     var activity_weight = profile.activity_weight;
     var inactivity_weight = profile.inactivity_weight;
     var activityRatio = 1;
-    var no_inactivity_detection = profile.nightly_inactivity_detection;
+    var nightly_inactivity_detection = profile.nightly_inactivity_detection;
     var activity_idle_start = profile.activity_idle_start;
     var activity_idle_end = profile.activity_idle_end;
 
