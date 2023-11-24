@@ -847,8 +847,9 @@ var determine_basal = function determine_basal(glucose_status, currenttemp, iob_
 
     // min_bg of 90 -> threshold of 65, 100 -> 70 110 -> 75, and 130 -> 85
     var threshold_ratio = 0.5;
+    if ( profile.meal_addon > 0 )           { threshold_ratio = 0.6; }    // temporary trigger for private threshold raise
     var threshold = threshold_ratio * min_bg + 20;
-
+    if ( min_bg<98 && threshold_ratio>0.5 ) { threshold = threshold + Math.pow(98-min_bg, 2) / 98; }
     threshold = round(threshold);
 
     //console.error(reservoir_data);
