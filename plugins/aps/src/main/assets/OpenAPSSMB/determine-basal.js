@@ -513,6 +513,8 @@ function activityMonitor(profile, bg, target_bg)
 }
 
 var determine_basal = function determine_basal(glucose_status, currenttemp, iob_data, profile, autosens_data, meal_data, tempBasalFunctions, microBolusAllowed, reservoir_data, currentTime, flatBGsDetected) {
+    // for enabling new feature capInsulin
+    var insulinCapBelowTarget = true;
     var rT = {}; //short for requestedTemp
 
     var deliverAt = new Date();
@@ -1362,6 +1364,16 @@ var determine_basal = function determine_basal(glucose_status, currenttemp, iob_
         return tempBasalFunctions.setTempBasal(0, 0, profile, rT, currenttemp);
     }
 
+    // mod V12: new algorithm for reducing insReq below target
+    //  virtually increased target allows negative insReq to be more negative and thus reduce profile base rate
+    var insReqOffset;
+    if ( bg < target_bg && target_bg < 95 ) {
+        insReqOffset = round((1-bg/target_bg) *5*8, 1);
+        console.error("gz Cap insulinReq = True; virtual target", insReqOffset);
+    } else {
+        insReqOffset = 0;
+    }
+
     if (eventualBG < min_bg) { // if eventual BG is below target:
         rT.reason += "Eventual BG " + convert_bg(eventualBG, profile) + " < " + convert_bg(min_bg, profile);
         // if 5m or 30m avg BG is rising faster than expected delta
@@ -1387,7 +1399,7 @@ var determine_basal = function determine_basal(glucose_status, currenttemp, iob_
 
         // calculate 30m low-temp required to get projected BG up to target
         // multiply by 2 to low-temp faster for increased hypo safety
-        var insulinReq = 2 * Math.min(0, (eventualBG - target_bg) / sens);
+        var insulinReq = 2 * Math.min(0, (eventualBG - target_bg - insReqOffset) / sens);
         insulinReq = round( insulinReq , 2);
         // calculate naiveInsulinReq based on naive_eventualBG
         var naiveInsulinReq = Math.min(0, (naive_eventualBG - target_bg) / sens);
@@ -1490,7 +1502,7 @@ var determine_basal = function determine_basal(glucose_status, currenttemp, iob_
 
         // insulinReq is the additional insulin required to get minPredBG down to target_bg
         //console.error(minPredBG,eventualBG);
-        insulinReq = round( (Math.min(minPredBG,eventualBG) - target_bg) / sens, 2);
+        insulinReq = round( (Math.min(minPredBG,eventualBG) - target_bg - insReqOffset) / sens, 2);
         // if that would put us over max_iob, then reduce accordingly
         if (insulinReq > max_iob-iob_data.iob) {
             rT.reason += "max_iob " + max_iob + ", ";
