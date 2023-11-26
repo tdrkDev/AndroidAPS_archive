@@ -513,8 +513,6 @@ function activityMonitor(profile, bg, target_bg)
 }
 
 var determine_basal = function determine_basal(glucose_status, currenttemp, iob_data, profile, autosens_data, meal_data, tempBasalFunctions, microBolusAllowed, reservoir_data, currentTime, flatBGsDetected) {
-    // for enabling new feature capInsulin
-    var insulinCapBelowTarget = true;
     var rT = {}; //short for requestedTemp
 
     var deliverAt = new Date();
