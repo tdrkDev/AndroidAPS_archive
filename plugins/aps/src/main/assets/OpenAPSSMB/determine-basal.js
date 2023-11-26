@@ -1557,6 +1557,17 @@ var determine_basal = function determine_basal(glucose_status, currenttemp, iob_
                 //}
                 console.error("Full loop capped SMB at", round(microBolus,2), "to not exceed", iobTHtolerance, "% of effective iobTH", round(iobTHvirtual/iobTHtolerance*100,2)+"U");
             }
+
+            if (bg < max_bg+10) {
+                var lessSMBRatio =                   2*(1 - bg/(max_bg+10));
+                //console.error("gz debug lessSMBRatio", lessSMBRatio);
+                lessSMBRatio     =       Math.min(1, lessSMBRatio          );
+                //console.error("gz debug lessSMBRatio", lessSMBRatio);
+                lessSMBRatio     = round(lessSMBRatio                       , 2);
+                //r lessSMBRatio = round(Math.min(1, 2*(1 - bg/(max_bg+10))), 2);
+                microBolus = microBolus * (1-lessSMBRatio);
+                console.error("gz SMB reduced by " + 100*lessSMBRatio + "% because bg("+bg+") is below upper target("+max_bg+")+10");
+            }
             microBolus = Math.floor(microBolus*roundSMBTo)/roundSMBTo;
             // calculate a long enough zero temp to eventually correct back up to target
             var smbTarget = target_bg;
