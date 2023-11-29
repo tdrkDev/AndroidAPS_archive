@@ -80,7 +80,7 @@ class GlucoseStatusProviderImpl @Inject constructor(
                 deltaPl = 0.0,
                 deltaPn = 0.0,
                 bgAcceleration = 0.0,
-                a0 = 0.0,
+                a0 = now.value,
                 a1 = 0.0,
                 a2 = 0.0,
                 corrSqu = 0.0
@@ -104,7 +104,7 @@ class GlucoseStatusProviderImpl @Inject constructor(
                 // multiply by 5 to get the same units as delta, i.e. mg/dL/5m
                 change = now.recalculated - then.recalculated
                 val avgDel = change / minutesAgo * 5
-                //aapsLogger.debug(LTag.GLUCOSE, "$then Bucketed=$minutesAgo valueAgo=$valueAgo recalcAgo=$bgAgo smooth=$smoothAgo filled=$filledAgo avgDelta=$avgDel")
+                aapsLogger.debug(LTag.GLUCOSE, "$then Bucketed=$minutesAgo valueAgo=$valueAgo recalcAgo=$bgAgo smooth=$smoothAgo filled=$filledAgo avgDelta=$avgDel")
 
                 // use the average of all data points in the last 2.5m for all further "now" calculations
                 // if (0 < minutesAgo && minutesAgo < 2.5) {
