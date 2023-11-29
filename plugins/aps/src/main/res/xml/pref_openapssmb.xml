@@ -146,6 +146,19 @@
             android:summary="@string/low_temptarget_lowers_sensitivity_summary"
             android:title="@string/low_temptarget_lowers_sensitivity_title" />
 
+        app.aaps.core.validators.ValidatingEditTextPreference
+            android:defaultValue="100"
+            android:dialogMessage="@string/full_basal_exercise_target_summary"
+            android:digits="0123456789"
+            android:inputType="number"
+            android:key="@string/key_full_basal_exercise_target"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="@string/full_basal_exercise_target_title"
+            validate:maxNumber="120"
+            validate:minNumber="72"
+            validate:testType="numericRange" />
+
         <app.aaps.core.validators.ValidatingEditTextPreference
             android:defaultValue="160"
             android:dialogMessage="@string/half_basal_exercise_target_summary"

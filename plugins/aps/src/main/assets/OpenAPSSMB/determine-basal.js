@@ -602,7 +602,13 @@ var determine_basal = function determine_basal(glucose_status, currenttemp, iob_
     var sensitivityRatio;
     var origin_sens = "";
     var high_temptarget_raises_sensitivity = profile.exercise_mode || profile.high_temptarget_raises_sensitivity;
-    var normalTarget = 100;    // evaluate high/low temptarget against this, not scheduled target (which might change)    }
+    if ( profile.full_basal_exercise_target && profile.exercise_mode ) {
+        var fullBasalTarget = profile.full_basal_exercise_target;
+    } else {
+        fullBasalTarget = 100; // when temptarget is 100 mg/dL, run 100% basal
+        // 80 mg/dL with low_temptarget_lowers_sensitivity would give 1.5x basal, but is limited to autosens_max (1.2x by default)
+    }
+    var normalTarget = fullBasalTarget;     // was 100;    // evaluate high/low temptarget against this, not scheduled target (which might change)    }
     if ( profile.half_basal_exercise_target ) {
         var halfBasalTarget = profile.half_basal_exercise_target;
     } else {
