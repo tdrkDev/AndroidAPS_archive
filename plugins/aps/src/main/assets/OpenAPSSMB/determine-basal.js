@@ -155,7 +155,7 @@ function loop_smb(microBolusAllowed, profile, iob_data, iobTH_reduction_ratio) {
             return "iobTH";
         } else {
             console.error("SMB enabled; " +msgType +target +msgUnits +msgEven +msgTail);
-            if (profile.target_bg<100) {     // indirect assessment; later set it in GUI
+            if (profile.target_bg<100 && profile.meal_addon>0) {        // indirect assessment; later set it in GUI
                 console.error("Loop at full power");
                 return "fullLoop";                                      // even number
             } else {
