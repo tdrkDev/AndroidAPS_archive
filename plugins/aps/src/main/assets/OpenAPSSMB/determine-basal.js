@@ -445,6 +445,9 @@ function determine_varSMBratio(profile, bg, target_bg, loop_wanted_smb)
         console.error('SMB delivery ratio limited by maximum value', higher_SMB);
         return higher_SMB;
     }
+    if (Math.abs(profile.FSL_min_Minutes) == 1) {
+        console.error('SMB delivery ratio for FSL kept at fixed value', fix_SMB);
+    }
     console.error('SMB delivery ratio set to interpolated value', new_SMB);
     return new_SMB;
 }
