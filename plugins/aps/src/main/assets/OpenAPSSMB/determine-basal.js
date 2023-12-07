@@ -1558,7 +1558,7 @@ var determine_basal = function determine_basal(glucose_status, currenttemp, iob_
             // mod autoISF3.0-dev: if that would put us over iobTH, then reduce accordingly; allow 30% overrun
             var iobTHtolerance = 130;
             var iobTHvirtual = profile.iob_threshold_percent*iobTHtolerance/10000 * profile.max_iob * iobTH_reduction_ratio;
-            if (typeof profile.meal_addon !== 'undefined') {
+            if (typeof (profile.meal_addon) !== 'undefined') {
                 if (loop_wanted_smb=="enforced" && profile.iob_threshold_percent<100 and profile.meal_addon>0) {
                     iobTHvirtual = iobTHvirtual / 2;     // half power w/o Full Loop
                 }
