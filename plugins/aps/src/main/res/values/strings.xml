@@ -234,8 +234,8 @@
     <string name="key_high_temptarget_raises_sensitivity" translatable="false">high_temptarget_raises_sensitivity</string>
     <string name="key_low_temptarget_lowers_sensitivity" translatable="false">low_temptarget_lowers_sensitivity</string>
     <string name="key_openapsama_iob_threshold_percent" translatable="false">iob_threshold_percent</string>
-    <string name="openapsama_iob_threshold_percent_summary" formatted="false">Default value: 100%\nThis is the share of maxIOB above which the Full Loop will disable SMB.\n\nWith 100% this feature is effectively disabled.</string>
-    <string name="openapsama_iob_threshold_percent">Relative level of maxIOB above which SMBs are disabled\n(iob_threshold_percent)</string>
+    <string name="openapsama_iob_threshold_percent_summary" formatted="false">Default value: 100%\nWith 100% this feature is effectively disabled.</string>
+    <string name="openapsama_iob_threshold_percent">Percentage of maxIOB above which SMBs are disabled\n(iob_threshold_percent)</string>
     <string name="key_openapsama_meal_addon" translatable="false">meal_addon</string>
     <string name="openapsama_meal_addon_summary" formatted="false">Default value: 0.0\nThis is the extra weight added to the acceleration weight reflecting various meal types. \n\nWith 0 this contribution is neutral for times without meal. \nFor typical meals use 50% of bgAccel_ISF_weight or in that range.</string>
     <string name="openapsama_meal_addon">Extra weight added to bgAccel_ISF_weight according to meal type\n(meal_addon)\n\nThis is a highly experimental feature and also acts as a switch to enable varying strengths of acce_ISF during the day.\nBEFORE USE READ THE DOCUMENTATION</string>

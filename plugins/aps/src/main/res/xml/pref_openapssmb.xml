@@ -380,12 +380,14 @@
 
             <androidx.preference.PreferenceScreen
                 android:key="acce_ISF_settings"
+                android:dependency="@string/key_enable_autoISF"
                 android:title="@string/acce_ISF_settings_title">
 
                 <Preference android:summary="@string/acce_ISF_settings_summary" />
 
                 <app.aaps.core.validators.ValidatingEditTextPreference
                     android:defaultValue="0.0"
+                    android:dependency="@string/key_enable_autoISF"
                     android:dialogMessage="@string/openapsama_bgAccel_ISF_weight_summary"
                     android:digits="0123456789.,"
                     android:inputType="numberDecimal"
@@ -400,6 +402,7 @@
 
                 <app.aaps.core.validators.ValidatingEditTextPreference
                     android:defaultValue="0.0"
+                    android:dependency="@string/key_enable_autoISF"
                     android:dialogMessage="@string/openapsama_bgBrake_ISF_weight_summary"
                     android:digits="0123456789.,"
                     android:inputType="numberDecimal"
