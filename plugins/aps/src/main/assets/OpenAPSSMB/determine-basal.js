@@ -317,18 +317,23 @@ autosens_data, sensitivityRatio, loop_wanted_smb, high_temptarget_raises_sensiti
     } else {
         var fit_share = 10*(fit_corr-0.9);                              // 0 at correlation 0.9, 1 at 1.00
         var cap_weight = 1;                                             // full contribution above target
+        var meal_addon = 0;
+        if (loop_wanted_smb=="fullLoop") {
+            meal_addon = profile.meal_addon;                            // like 50% stronger during meal times
+        }
+        if ( meal_addon>0)      { console.error("meal_addon is", round(meal_addon,2)) };
         if ( acce_weight==1 && glucose_status.glucose<profile.target_bg ) { // below target acce goes towards target
             if ( bg_acce > 0 ) {
                 if ( bg_acce>1)            { cap_weight = 0.5; }            // halve the effect below target
                 acce_weight = profile.bgBrake_ISF_weight;
             } else if ( bg_acce < 0 ) {
-                acce_weight = profile.bgAccel_ISF_weight;
+                acce_weight = profile.bgAccel_ISF_weight + meal_addon;
             }
         } else if ( acce_weight==1) {                                       // above target acce goes away from target
             if ( bg_acce < 0 ) {
                 acce_weight = profile.bgBrake_ISF_weight;
             } else if ( bg_acce > 0 ) {
-                acce_weight = profile.bgAccel_ISF_weight;
+                acce_weight = profile.bgAccel_ISF_weight + meal_addon;
             }
         }
         acce_ISF = 1 + bg_acce * cap_weight * acce_weight * fit_share;
