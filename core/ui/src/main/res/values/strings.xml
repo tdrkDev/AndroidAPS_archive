@@ -631,9 +631,8 @@
     </plurals>
 
     <!--    Maintenance-->
-    <!--string name="cleanup_db_confirm">Do you want to cleanup the database?\nIt will remove tracked changes and historic data older than 3 months.</string> -->
-    <string name="cleanup_db_confirm">Do you want to cleanup the APS database?\nIt will remove tracked changes and historic data older than 1 month.</string>
-    <string name="cleanup_db_confirm_sync">Do you want to cleanup the NS database?\nIt will remove tracked changes and historic data older than 3 months.\nDoing it will speedup full synchronization dramatically.</string>
+    <string name="cleanup_db_confirm">Do you want to cleanup the database?\nIt will remove tracked changes and historic data older than 3 months.</string>
+    <string name="cleanup_db_confirm_sync">Do you want to cleanup the database?\nIt will remove tracked changes and historic data older than 3 months.\nDoing it will speedup full synchronization dramatically.</string>
     <string name="cleared_entries">Cleared entries</string>
 
     <!--    Weekday-->

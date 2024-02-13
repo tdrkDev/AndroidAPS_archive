@@ -117,8 +117,7 @@ class MaintenanceFragment : DaggerFragment() {
             activity?.let { activity ->
                 var result = ""
                 OKDialog.showConfirmation(activity, rh.gs(R.string.maintenance), rh.gs(app.aaps.core.ui.R.string.cleanup_db_confirm), Runnable {
-                    //disposable += Completable.fromAction { result = persistenceLayer.cleanupDatabase(93, deleteTrackedChanges = true) }
-                    disposable += Completable.fromAction { result = persistenceLayer.cleanupDatabase(31, deleteTrackedChanges = true) }
+                    disposable += Completable.fromAction { result = persistenceLayer.cleanupDatabase(93, deleteTrackedChanges = true) }
                         .subscribeOn(aapsSchedulers.io)
                         .observeOn(aapsSchedulers.main)
                         .subscribeBy(
