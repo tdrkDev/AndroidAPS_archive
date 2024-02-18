@@ -241,7 +241,7 @@ class DetermineBasalAdapterSMBJS internal constructor(private val scriptReader: 
         this.profile.put("autosens_max", SafeParse.stringToDouble(sp.getString(app.aaps.core.utils.R.string.key_openapsama_autosens_max, "1.2")))
 
         // mod use autoisf here
-        this.profile.put("autoISF_version", "3.0")        // was BuildConfig.AUTOISF_VERSION)
+        this.profile.put("autoISF_version", "3.0.1")        // was BuildConfig.AUTOISF_VERSION)
         this.profile.put("enable_autoISF", sp.getBoolean(R.string.key_enable_autoISF, false))
         this.profile.put("autoISF_max",  SafeParse.stringToDouble(sp.getString(R.string.key_openapsama_autoISF_max, "1.0")))
         this.profile.put("autoISF_min",  SafeParse.stringToDouble(sp.getString(R.string.key_openapsama_autoISF_min, "1.0")))
