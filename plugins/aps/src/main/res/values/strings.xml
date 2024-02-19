@@ -163,15 +163,18 @@
     <string name="acce_ISF_settings_summary">acce_ISF settings: adjust ISF for accelerating/decelerating blood glucose</string>
     <string name="key_openapsama_enable_autoISF" translatable="false">openapsama_enable_autoISF</string>
     <string name="key_enable_autoISF" translatable="false">openapsama_enable_autoISF</string>
+    <!--
     <string name="key_enable_dura_ISF_with_COB" translatable="false">enable_dura_ISF_with_COB</string>
-    <string name="enableautoISFwithcob">Enable dura_ISF with COB</string>
     <string name="enableautoISFwithcob_summary">Enable dura_ISF when there is COB active</string>
+    -->
     <string name="bg_ISF_settings_title">bg_ISF settings</string>
     <string name="bg_ISF_settings_summary">bg_ISF settings: ISF depending on blood glucose level according to a predefined polygon</string>
     <string name="pp_ISF_settings_title">pp_ISF settings</string>
     <string name="pp_ISF_settings_summary">pp_ISF settings: ISF for postprandial (after meal) glucose rise</string>
+    <!--
     <string name="delta_ISF_settings_title">delta_ISF settings</string>
     <string name="delta_ISF_settings_summary">delta_ISF settings: ISF adaptations for positive delta, i.e. rising blood glucose</string>
+    -->
     <string name="dura_ISF_settings_title">dura_ISF settings</string>
     <string name="dura_ISF_settings_summary">dura_ISF settings: ISF for blood glucose plateau above target</string>
     <string name="smb_delivery_settings_title">smb delivery settings</string>
@@ -187,15 +190,19 @@
     <string name="openapsama_lower_ISFrange_weight_summary">Default value: 0.0\nThis is the weight applied to the polygon which adapats ISF if glucose is below target. \n\nWith 0.0 the effect is effectively disabled.</string>
     <string name="key_openapsama_higher_ISFrange_weight" translatable="false">higher_ISFrange_weight</string>
     <string name="openapsama_higher_ISFrange_weight_summary">Default value: 0.0\nThis is the weight applied to the polygon which adapats ISF if glucose is above target. \n\nWith 0.0 the effect is effectively disabled.</string>
+    <!--
     <string name="key_openapsama_delta_ISFrange_weight" translatable="false">delta_ISFrange_weight</string>
     <string name="openapsama_delta_ISFrange_weight_summary">Default value: 0.0\nThis is the weight applied to the polygon which adapats ISF for higher deltas. \n\nWith 0.0 the effect is effectively disabled.</string>
+    -->
     <string name="key_openapsama_pp_ISF_weight" translatable="false">pp_ISF_weight</string>
     <string name="openapsama_pp_ISF_weight_summary">Default value: 0.0\nThis is the weight applied to the linear slope while glucose rises and which adapts ISF. \n\nWith 0.0 this contribution is effectively disabled.</string>
+    <!--
     <string name="key_openapsama_pp_ISF_hours" translatable="false">pp_ISF_hours</string>
     <string name="openapsama_pp_ISF_hours_summary">Default value: 3\nThis is the duration in hours how long after a meal the effect will be active. \n\nAAPS will delete carb timing after 10 hours latest no matter what you enter.</string>
     <string name="key_enable_postprandial_ISF_always" translatable="false">enable_postprandial_ISF_always</string>
     <string name="enable_postprandial_ISF_always_summary">Enable the postprandial ISF adaptation all the time regardless of when the last meal was taken.</string>
     <string name="enable_postprandial_ISF_always">Enable pp_ISF postprandial all day</string>
+    -->
     <string name="key_openapsama_bgAccel_ISF_weight" translatable="false">bgAccel_ISF_weight</string>
     <string name="openapsama_bgAccel_ISF_weight_summary">Default value: 0.0\nThis is the weight applied while glucose accelerates and which strengthens ISF. \n\nWith 0.0 this contribution is effectively disabled.</string>
     <string name="key_openapsama_bgBrake_ISF_weight" translatable="false">bgBrake_ISF_weight</string>
@@ -204,7 +211,9 @@
     <string name="openapsama_autoISF_min">Min autoISF ratio\n(autoISF_min)</string>
     <string name="openapsama_lower_ISFrange_weight">lower ISF-range weight\n(lower_ISFrange_weight)</string>
     <string name="openapsama_higher_ISFrange_weight">higher ISF-range weight\n(higher_ISFrange_weight)</string>
+    <!--
     <string name="openapsama_delta_ISFrange_weight">delta ISF-range weight\n(delta_ISFrange_weight)</string>
+    -->
     <string name="openapsama_pp_ISF_weight">postprandial ISF weight\n(pp_ISF_weight)</string>
     <string name="openapsama_pp_ISF_hours">postprandial ISF time window\n(pp_ISF_hours)</string>
     <string name="openapsama_bgAccel_ISF_weight">Weight while BG accelerates\n(bgAccel_ISF_weight)</string>
@@ -225,12 +234,14 @@
     <string name="openapsama_smb_delivery_ratio_max_summary">Default value: 0.5 This is the upper end of a linearly increasing ratio rather than the fix value above.</string>
     <string name="openapsama_smb_delivery_ratio_bg_range_summary">Default value: 0. The linearly increasing SMB delivery ratio is mapped to the glucose range [target_bg, target_bg+bg_range].\nAt target_bg the SMB ratio is smb_delivery_ratio_min, at target_bg+bg_range it is smb_delivery_ratio_max\nWith 0 the linearly increasing SMB ratio is disabled and the fixed smb_delivery_ratio is used.</string>
     <string name="openapsama_smb_max_range_extension_summary">Default value: 1 This is another key OpenAPS safety cap, and specifies by what factor you can exceed the regular 120 maxSMB/maxUAM minutes. Increase this experimental value slowly and with caution.</string>
+    <!--
     <string name="enableSMB_EvenOn_OddOff">Enable alternative activation of SMB depending on TempTarget</string>
     <string name="key_enableSMB_EvenOn_OddOff" translatable="false">Enable alternative activation of SMB</string>
     <string name="enableSMB_EvenOn_OddOff_summary">\nenabled if ...\nTempTarget(mmol/L) has even decimal\nor TempTarget(mg/dL) is even number\n\ndisabled otherwise</string>
-    <string name="enableSMB_EvenOn_OddOff_always">Enable alternative activation of SMB depending on profile target</string>
-    <string name="key_enableSMB_EvenOn_OddOff_always" translatable="false">Enable alternative activation of SMB always</string>
-    <string name="enableSMB_EvenOn_OddOff_always_summary">\nenabled if no TempTarget set and ...\nprofile target(mmol/L) has even decimal\nor profile target(mg/dL) is even number\n\ndisabled otherwise</string>
+    -->
+    <string name="enableSMB_EvenOn_OddOff_always">Enable alternative activation of SMB depending on current target</string>
+    <string name="key_enableSMB_EvenOn_OddOff_always" translatable="false">Enable alternative activation of SMB</string>
+    <string name="enableSMB_EvenOn_OddOff_always_summary">\nenabled\nif current target(mmol/L) has even decimal\nor current target(mg/dL) is even number\n\ndisabled otherwise</string>
     <string name="key_high_temptarget_raises_sensitivity" translatable="false">high_temptarget_raises_sensitivity</string>
     <string name="key_low_temptarget_lowers_sensitivity" translatable="false">low_temptarget_lowers_sensitivity</string>
     <string name="key_openapsama_iob_threshold_percent" translatable="false">iob_threshold_percent</string>

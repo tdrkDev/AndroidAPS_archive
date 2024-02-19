@@ -114,13 +114,14 @@ function loop_smb(microBolusAllowed, profile, iob_data, iobTH_reduction_ratio) {
     if ( !microBolusAllowed ) {
         return "AAPS";                                                  // see message in enable_smb
     }
-    if (profile.temptargetSet && profile.enableSMB_EvenOn_OddOff || profile.min_bg==profile.max_bg && profile.enableSMB_EvenOn_OddOff_always && !profile.temptargetSet)  {
+    //if (profile.temptargetSet && profile.enableSMB_EvenOn_OddOff || profile.min_bg==profile.max_bg && profile.enableSMB_EvenOn_OddOff_always && !profile.temptargetSet)  {
+    if (profile.enableSMB_EvenOn_OddOff_always) {
         var target = convert_bg(profile.target_bg, profile);
-        if (profile['temptargetSet']) {
-            msgType= "TempTarget ";
-        } else {
-            msgType = "profile target ";
-        }
+        //if (profile['temptargetSet']) {
+        //    msgType= "TempTarget ";
+        //} else {
+        //    msgType = "profile target ";
+        //}
         if (profile['out_units'] == "mmol/L") {
             evenTarget = ( round(target*10, 0) %2 == 0 );
             msgUnits   = " has ";
@@ -137,7 +138,7 @@ function loop_smb(microBolusAllowed, profile, iob_data, iobTH_reduction_ratio) {
         }
         var iobTHeffective = profile.iob_threshold_percent;
         if ( !evenTarget ) {
-            console.error("SMB disabled; " +msgType +target +msgUnits +msgEven +msgTail);
+            console.error("SMB disabled; current target " +target +msgUnits +msgEven +msgTail);
             console.error("Loop allows minimal power");
             return "blocked";
         } else if ( profile.max_iob==0 ) {
@@ -154,7 +155,7 @@ function loop_smb(microBolusAllowed, profile, iob_data, iobTH_reduction_ratio) {
             console.error("Loop power level temporarily capped");
             return "iobTH";
         } else {
-            console.error("SMB enabled; " +msgType +target +msgUnits +msgEven +msgTail);
+            console.error("SMB enabled; current target " +target +msgUnits +msgEven +msgTail);
             if (profile.target_bg<100) {        // indirect assessment; later set it in GUI
                 console.error("Loop allows maximum power");
                 return "fullLoop";                                      // even number
@@ -168,23 +169,23 @@ function loop_smb(microBolusAllowed, profile, iob_data, iobTH_reduction_ratio) {
     return "AAPS";                                                      // leave it to standard AAPS
 }
 
-function interpolate(xdata, profile, type)
+function interpolate(xdata, profile)    //, type)
 {   // interpolate ISF behaviour based on polygons defining nonlinear functions defined by value pairs for ...
-    //  ...         <---------------  glucose  ------------------->
-    var polyX_bg = [  50,   60,   80,   90, 100, 110, 150, 180, 200];    // later, hand it over
-    var polyY_bg = [-0.5, -0.5, -0.3, -0.2, 0.0, 0.0, 0.5, 0.7, 0.7];    // later, hand it over
+    //  ...      <---------------  glucose  ------------------->
+    var polyX = [  50,   60,   80,   90, 100, 110, 150, 180, 200];    // later, hand it over
+    var polyY = [-0.5, -0.5, -0.3, -0.2, 0.0, 0.0, 0.5, 0.7, 0.7];    // later, hand it over
     //  ...            <-----  delta  ------->
-    var polyX_delta = [  2,   7,  12,  16,  20];                         // later, hand it over
-    var polyY_delta = [0.0, 0.0, 0.4, 0.7, 0.7];                         // later, hand it over
-    var polyX;
-    var polyY;
-    if (type == "bg") {
-        polyX = polyX_bg;
-        polyY = polyY_bg;
-    } else if (type =="delta") {
-        polyX = polyX_delta;
-        polyY = polyY_delta;
-    }
+    //var polyX_delta = [  2,   7,  12,  16,  20];                         // later, hand it over
+    //var polyY_delta = [0.0, 0.0, 0.4, 0.7, 0.7];                         // later, hand it over
+    //var polyX;
+    //var polyY;
+    //if (type == "bg") {
+    //    polyX = polyX_bg;
+    //    polyY = polyY_bg;
+    //} else if (type =="delta") {
+    //    polyX = polyX_delta;
+    //    polyY = polyY_delta;
+    //}
     var polymax = polyX.length-1;
     var step = polyX[0];
     var sVal = polyY[0];
@@ -239,9 +240,9 @@ function interpolate(xdata, profile, type)
             lowLabl= step;
         }
     }
-    if (type == "delta") {newVal = newVal * profile['delta_ISFrange_weight']}      // delta range
-    else if ( xdata>100) {newVal = newVal * profile['higher_ISFrange_weight']}     // higher BG range
-    else                 {newVal = newVal * profile['lower_ISFrange_weight']}      // lower BG range
+    //if (type == "delta") {newVal = newVal * profile['delta_ISFrange_weight']}      // delta range
+    if ( xdata>100) {newVal = newVal * profile['higher_ISFrange_weight']}     // higher BG range
+    else            {newVal = newVal * profile['lower_ISFrange_weight']}      // lower BG range
     return newVal;
 }
 
@@ -290,7 +291,7 @@ autosens_data, sensitivityRatio, loop_wanted_smb, high_temptarget_raises_sensiti
     var maxISFReduction = profile.autoISF_max;
     var sens_modified = false;
     var pp_ISF = 1;
-    var delta_ISF = 1;
+    //var delta_ISF = 1;
     var acce_ISF = 1;
     var acce_weight = 1;
     var bg_off = target_bg+10 - glucose_status.glucose;                      // move from central BG=100 to target+10 as virtual BG'=100
@@ -360,41 +361,41 @@ autosens_data, sensitivityRatio, loop_wanted_smb, high_temptarget_raises_sensiti
     }
 
     var bg_delta = glucose_status.delta;
-    if (profile.enable_pp_ISF_always || profile.pp_ISF_hours >= (currentTime - meal_data.lastCarbTime) / 1000/3600) {  // corrected logic on 17.Sep.2021
-        deltaType = 'pp'
-    } else {
-        deltaType = 'delta'
-    }
+    //if (profile.enable_pp_ISF_always || profile.pp_ISF_hours >= (currentTime - meal_data.lastCarbTime) / 1000/3600) {  // corrected logic on 17.Sep.2021
+    var deltaType = 'pp';
+    //} else {
+    //    deltaType = 'delta'
+    //}
     if (bg_off > 0) {
         console.error(deltaType+"_ISF adaptation by-passed as average glucose < "+target_bg+"+10");
     } else if (glucose_status.short_avgdelta<0) {
         console.error(deltaType+"_ISF adaptation by-passed as no rise or too short lived");
-    } else if (deltaType == 'pp') {
+    } else { //if (deltaType == 'pp') {
         pp_ISF = 1 + Math.max(0, bg_delta * profile.pp_ISF_weight);
         console.error("pp_ISF adaptation is", round(pp_ISF,2));
         if (pp_ISF != 1) {
             sens_modified = true;
         }
 
-    } else {
-        delta_ISF = interpolate(bg_delta, profile, "delta");
-        //  mod V14d: halve the effect below target_bg+30
-        if ( bg_off > -20 ) {
-            delta_ISF = 0.5 * delta_ISF;
-        }
-        delta_ISF = 1 + delta_ISF;
-        console.error("delta_ISF adaptation is", round(delta_ISF,2));
-
-        if (delta_ISF != 1) {
-            sens_modified = true;
-        }
+    //} else {
+    //    delta_ISF = interpolate(bg_delta, profile, "delta");
+    //    //  mod V14d: halve the effect below target_bg+30
+    //    if ( bg_off > -20 ) {
+    //        delta_ISF = 0.5 * delta_ISF;
+    //    }
+    //    delta_ISF = 1 + delta_ISF;
+    //    console.error("delta_ISF adaptation is", round(delta_ISF,2));
+//
+    //    if (delta_ISF != 1) {
+    //        sens_modified = true;
+    //    }
     }
 
     var dura_ISF = 1
     var weightISF = profile.dura_ISF_weight;
-    if (meal_data.mealCOB>0 && !profile.enable_dura_ISF_with_COB) {
-        console.error("dura_ISF by-passed; preferences disabled mealCOB of "+round(meal_data.mealCOB,1));    // mod 7f
-    } else if (dura05<10) {
+    //if (meal_data.mealCOB>0 && !profile.enable_dura_ISF_with_COB) {
+    //    console.error("dura_ISF by-passed; preferences disabled mealCOB of "+round(meal_data.mealCOB,1));    // mod 7f
+    if (dura05<10) {
         console.error("dura_ISF by-passed; bg is only "+dura05+"m at level "+avg05);
     } else if (avg05 <= target_bg) {
         console.error("dura_ISF by-passed; avg. glucose", avg05, "below target", target_bg);
@@ -407,7 +408,7 @@ autosens_data, sensitivityRatio, loop_wanted_smb, high_temptarget_raises_sensiti
         console.error("dura_ISF adaptation is", round(dura_ISF,2), "because ISF", round(sens,1), "did not do it for", round(dura05,1),"m");
     }
     if ( sens_modified ) {
-        liftISF = Math.max(dura_ISF, bg_ISF, delta_ISF, acce_ISF, pp_ISF);
+        liftISF = Math.max(dura_ISF, bg_ISF, acce_ISF, pp_ISF);
         if ( acce_ISF < 1 ) {                                                                           // 13.JAN.2022 brakes on for otherwise stronger or stable ISF
             console.error("strongest autoISF factor", round(liftISF,2), "weakened to", round(liftISF*acce_ISF,2), "as bg decelerates already");
             liftISF = liftISF * acce_ISF;                                                               // brakes on for otherwise stronger or stable ISF
