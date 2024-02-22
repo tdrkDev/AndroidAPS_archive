@@ -15,7 +15,7 @@ class CgmSourceTransaction(
     private val calibrations: List<Calibration>,
     private val sensorInsertionTime: Long?,
     private var bgReadings: List<GlucoseValue> = listOf(),
-    private val updateWindow: Int = 50 // max number of smoothed glucose values to be updated per cycle to avoid updating the database with
+    private val updateWindow: Int = 10 // max number of smoothed glucose values to be updated per cycle to avoid updating the database with
     // all entries stored in bgReadings
 
 ) : Transaction<CgmSourceTransaction.TransactionResult>() {

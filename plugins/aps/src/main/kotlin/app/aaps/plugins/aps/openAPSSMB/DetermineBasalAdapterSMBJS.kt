@@ -293,7 +293,7 @@ class DetermineBasalAdapterSMBJS internal constructor(private val scriptReader: 
         mGlucoseStatus.put("date", glucoseStatus.date)
         mGlucoseStatus.put("dura_ISF_minutes", glucoseStatus.duraISFminutes)
         mGlucoseStatus.put("dura_ISF_average", glucoseStatus.duraISFaverage)
-        mGlucoseStatus.put("useFSL1minuteSmooth", glucoseStatus.useFSL1minuteSmooth)
+        mGlucoseStatus.put("useFSL1minuteRaw", glucoseStatus.useFSL1minuteRaw)
         mGlucoseStatus.put("parabola_fit_correlation", (glucoseStatus.corrSqu*10000.0).roundToInt()/10000.0)
         mGlucoseStatus.put("parabola_fit_minutes", glucoseStatus.parabolaMinutes)
         mGlucoseStatus.put("parabola_fit_last_delta", (glucoseStatus.deltaPl*10.0).roundToInt() / 10.0)
