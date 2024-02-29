@@ -272,5 +272,11 @@
     <string name="key_inactivity_idle_end" translatable="false">inactivity_idle_end</string>
 
     <string name="key_parabolaSourceDataType">parabolaSourceType</string>
-    <string name="key_fslMinFitMinutes">fslFitMinutes</string>
+    <string name="key_fslMinFitMinutes" translatable="false">fslFitMinutes</string>
+    <string name="key_fslCal_Offset" translatable="false">fslCalOffset</string>
+    <string name="fslCal_Offset_title">Offset of Libre calibration versus finger like in xDrip</string>
+    <string name="key_fslCal_Offset_summary">OFFSET value as in calibration formula\nLibre_calibrated = OFFSET + slope * Libre_raw</string>
+    <string name="key_fslCal_Slope" translatable="false">fslCalSlope</string>
+    <string name="fslCal_Slope_title">Slope of Libre calibration versus finger like in xDrip</string>
+    <string name="fslCal_Slope_summary">SLOPE value as in calibration formula\nLibre_calibrated = offset + SLOPE * Libre_raw</string>
 </resources>
