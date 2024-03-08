@@ -58,9 +58,9 @@ class GlucoseStatusProviderImpl @Inject constructor(
         val fslDate = fsl.timestamp
         val fslValue = fsl.value
         val fslRaw = fsl.raw
-        //val fslReally = fsl.sourceSensor.isLibre()
-        val fslReally = true    // "RANDOM" while testing with virtual phone in AS
-        var fslMinDur = 15  // default 5m CGM
+        val fslReally = fsl.sourceSensor.isLibre()
+        //val fslReally = true    // "RANDOM" while testing with virtual phone in AS
+        var fslMinDur = 15  // default for 5m CGM
         //val fslFitSrc = sp.getInt(R.string.key_parabolaSourceDataType, 1)
         aapsLogger.debug(LTag.GLUCOSE, "BgReadings stamp=$fslDate; raw=$fslRaw; value=$fslValue; " +
             "BgBucketed value=$nowValue; recalc=$recalc; smooth=$smooth; filled=$filled; CGM=$cgm; Libre=$fslReally; fitDura=$fslMinDur; fitSrc=1mRaw")
