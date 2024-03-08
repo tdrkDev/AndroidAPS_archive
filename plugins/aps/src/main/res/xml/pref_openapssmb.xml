@@ -147,19 +147,6 @@
             android:title="@string/low_temptarget_lowers_sensitivity_title" />
 
         <app.aaps.core.validators.ValidatingEditTextPreference
-            android:defaultValue="100"
-            android:dialogMessage="@string/full_basal_exercise_target_summary"
-            android:digits="0123456789"
-            android:inputType="number"
-            android:key="@string/key_full_basal_exercise_target"
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
-            android:title="@string/full_basal_exercise_target_title"
-            validate:maxNumber="120"
-            validate:minNumber="72"
-            validate:testType="numericRange" />
-
-        <app.aaps.core.validators.ValidatingEditTextPreference
             android:defaultValue="160"
             android:dialogMessage="@string/half_basal_exercise_target_summary"
             android:digits="0123456789"
@@ -169,7 +156,7 @@
             android:singleLine="true"
             android:title="@string/half_basal_exercise_target_title"
             validate:maxNumber="200"
-            validate:minNumber="72"
+            validate:minNumber="120"
             validate:testType="numericRange" />
 
         <androidx.preference.PreferenceScreen
@@ -621,7 +608,7 @@
                 android:key="Full loop settings"
                 android:title="Full Loop Settings">
 
-                <Preference android:summary="Full Loop Settings: Adjust iobTH and total acce weights for meal types" />
+                <Preference android:summary="Full Loop Settings: set iobTH" />
 
                 <app.aaps.core.validators.ValidatingEditTextPreference
                     android:defaultValue="100"
@@ -637,22 +624,9 @@
                     validate:minNumber="10"
                     validate:testType="numericRange" />
 
-                <app.aaps.core.validators.ValidatingEditTextPreference
-                    android:defaultValue="0.0"
-                    android:dialogMessage="@string/openapsama_meal_addon_summary"
-                    android:digits="0123456789.,-"
-                    android:inputType="numberDecimal"
-                    android:key="@string/key_openapsama_meal_addon"
-                    android:maxLines="20"
-                    android:selectAllOnFocus="true"
-                    android:singleLine="true"
-                    android:title="@string/openapsama_meal_addon"
-                    validate:floatmaxNumber="1.0"
-                    validate:floatminNumber="-1.0"
-                    validate:testType="floatNumericRange" />
-
             </androidx.preference.PreferenceScreen>
 
+            <!--
             <androidx.preference.PreferenceScreen
                 android:key="Libre 1 minute settings"
                 android:title="Libre 1 minute settings">
@@ -671,7 +645,7 @@
                     android:title="Minimum minutes for parabola fit"
                     validate:maxNumber="40"
                     validate:minNumber="10"
-                    validate:testType="numericRange" />
+                    validate:testType="numericRange" /> -->
 
                 <!--<app.aaps.core.validators.ValidatingEditTextPreference
                     android:defaultValue="-1"
@@ -685,9 +659,9 @@
                     android:title="Glucose source data for parabola fit"
                     validate:maxNumber="5"
                     validate:minNumber="-5"
-                    validate:testType="numericRange" /> -->
+                    validate:testType="numericRange" />
 
-            </androidx.preference.PreferenceScreen>
+            </androidx.preference.PreferenceScreen> -->
 
         </androidx.preference.PreferenceScreen>
 

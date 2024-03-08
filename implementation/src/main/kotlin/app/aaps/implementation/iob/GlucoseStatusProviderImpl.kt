@@ -184,7 +184,7 @@ class GlucoseStatusProviderImpl @Inject constructor(
                 if ( orig[0].timestamp - orig[2].timestamp < 3 * 60000 ) {
                     use1MinuteRaw = true
                     sizeRecords = orig.size
-                    fslMinDur = sp.getInt(R.string.key_fslMinFitMinutes, 20)
+                    fslMinDur = 20  //sp.getInt(R.string.key_fslMinFitMinutes, 20)
                 }
             }
         }
@@ -282,7 +282,7 @@ class GlucoseStatusProviderImpl @Inject constructor(
                         val yMean = sy / n
                         var sSquares = 0.0
                         var sResidualSquares = 0.0
-                        var smoothBg: Double
+                        //var smoothBg: Double
                         var rawBg: Double
                         for (j in 0..i) {
                             //if (fslReally && fslFitSrc==1) {

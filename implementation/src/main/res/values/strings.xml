@@ -25,7 +25,7 @@
     <string name="night_tir">Night TIR</string>
     <string name="carbs_short" comment="max 6 characters">Carbs</string>
 
-    <!-- temp feíx to  access config parameters in this branch-->
+    <!-- temp fíx to  access config parameters in this branch
     <string name="key_parabolaSourceDataType">parabolaSourceType</string>
-    <string name="key_fslMinFitMinutes">fslFitMinutes</string>
+    <string name="key_fslMinFitMinutes">fslFitMinutes</string> -->
 </resources>
