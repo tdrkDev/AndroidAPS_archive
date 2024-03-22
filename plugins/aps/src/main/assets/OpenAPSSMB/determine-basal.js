@@ -650,12 +650,11 @@ var determine_basal = function determine_basal(glucose_status, currenttemp, iob_
             // with low TT and lowTTlowersSensitivity we need autosens_max as a value
             // we use multiplication instead of the division to avoid "division by zero error"
             if (c * (c + target_bg-normalTarget) <= 0.0) {
-              sensitivityRatio = profile.autosens_max;
+                // limit sensitivityRatio to profile.autosens_max (1.2x by default)
+                sensitivityRatio = profile.autosens_max;
+            } else {
+                sensitivityRatio = c/(c+target_bg-normalTarget);
             }
-            else {
-              sensitivityRatio = c/(c+target_bg-normalTarget);
-            }
-            // limit sensitivityRatio to profile.autosens_max (1.2x by default)
             sensitivityRatio = Math.min(sensitivityRatio, profile.autosens_max);
             sensitivityRatio = round(sensitivityRatio,2);
             exercise_ratio = sensitivityRatio;
