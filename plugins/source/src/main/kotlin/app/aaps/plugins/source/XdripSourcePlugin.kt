@@ -102,10 +102,19 @@ class XdripSourcePlugin @Inject constructor(
 
             aapsLogger.debug(LTag.BGSOURCE, "Received xDrip data: $bundle")
             val glucoseValues = mutableListOf<TransactionGlucoseValue>()
+            var extraBgEstimate = round(bundle.getDouble(Intents.EXTRA_BG_ESTIMATE, 0.0))
+            var extraRaw = round(bundle.getDouble(Intents.EXTRA_RAW, 0.0))
+            val offset = sp.getDouble(app.aaps.database.impl.R.string.key_fslCal_Offset, 0.0)
+            val slope = sp.getDouble(app.aaps.database.impl.R.string.key_fslCal_Slope, 1.0)
+            if (extraRaw == 0.0) {
+                extraRaw = extraBgEstimate
+                extraBgEstimate = extraRaw * slope + offset
+                aapsLogger.debug(LTag.BGSOURCE, "Applied Libre 1 minute calibration: offet=$offset, slope=$slope")
+            }
             glucoseValues += TransactionGlucoseValue(
                 timestamp = bundle.getLong(Intents.EXTRA_TIMESTAMP, 0),
-                value = round(bundle.getDouble(Intents.EXTRA_BG_ESTIMATE, 0.0)),
-                raw = round(bundle.getDouble(Intents.EXTRA_RAW, 0.0)),
+                value = round(extraBgEstimate), //round(bundle.getDouble(Intents.EXTRA_BG_ESTIMATE, 0.0)),
+                raw = round(extraRaw),  //round(bundle.getDouble(Intents.EXTRA_RAW, 0.0)),
                 noise = null,
                 trendArrow = GlucoseValue.TrendArrow.fromString(bundle.getString(Intents.EXTRA_BG_SLOPE_NAME)),
                 sourceSensor = GlucoseValue.SourceSensor.fromString(

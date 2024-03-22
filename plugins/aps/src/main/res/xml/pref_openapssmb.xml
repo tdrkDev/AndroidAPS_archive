@@ -631,7 +631,7 @@
                 android:key="Libre 1 minute settings"
                 android:title="Libre 1 minute settings">
 
-                <Preference android:summary="Libre settings for parabola fit" />
+                <Preference android:summary="Libre settings for parabola fit and calibration" />
 
                 <app.aaps.core.validators.ValidatingEditTextPreference
                     android:defaultValue="20"
@@ -646,6 +646,34 @@
                     validate:maxNumber="40"
                     validate:minNumber="10"
                     validate:testType="numericRange" /> -->
+
+                <app.aaps.core.validators.ValidatingEditTextPreference
+                    android:defaultValue="0.0"
+                    android:dialogMessage="@string/key_fslCal_Offset_summary"
+                    android:digits="0123456789.,"
+                    android:inputType="number"
+                    android:key="@string/key_fslCal_Offset"
+                    android:maxLines="20"
+                    android:selectAllOnFocus="true"
+                    android:singleLine="true"
+                    android:title="@string/fslCal_Offset_title"
+                    validate:floatmaxNumber="+50.0"
+                    validate:floatminNumber="-50.0"
+                    validate:testType="floatNumericRange" />
+
+                <app.aaps.core.validators.ValidatingEditTextPreference
+                    android:defaultValue="1.0"
+                    android:dialogMessage="@string/fslCal_Slope_summary"
+                    android:digits="0123456789.,"
+                    android:inputType="number"
+                    android:key="@string/key_fslCal_Slope"
+                    android:maxLines="20"
+                    android:selectAllOnFocus="true"
+                    android:singleLine="true"
+                    android:title="@string/fslCal_Slope_title"
+                    validate:floatmaxNumber="1.5"
+                    validate:floatminNumber="0.5"
+                    validate:testType="floatNumericRange" />
 
                 <!--<app.aaps.core.validators.ValidatingEditTextPreference
                     android:defaultValue="-1"

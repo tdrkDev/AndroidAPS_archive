@@ -322,6 +322,8 @@ class DetermineBasalAdapterSMBJS internal constructor(private val scriptReader: 
         val lastAppStart = sp.getLong(R.string.key_app_start, now)
         val elapsedTimeSinceLastStart = (now - lastAppStart) / 60000
         this.profile.put("time_since_start", elapsedTimeSinceLastStart)
+        this.profile.put("L3_calibration_offset", SafeParse.stringToDouble(sp.getString(R.string.key_fslCal_Offset, "0.0")))
+        this.profile.put("L3_calibration_slope", SafeParse.stringToDouble(sp.getString(R.string.key_fslCal_Slope, "1.0")))
 
         this.mealData.put("carbs", mealData.carbs)
         this.mealData.put("mealCOB", mealData.mealCOB)
