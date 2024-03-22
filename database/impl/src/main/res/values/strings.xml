@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!--    duplicated from plugin branch to allow access in CgmSourceTransaction.kt   -->
-    <string name="key_fslCal_Offset" translatable="false">fslCalOffset</string>
-    <string name="key_fslCal_Slope" translatable="false">fslCalSlope</string>
-</resources>

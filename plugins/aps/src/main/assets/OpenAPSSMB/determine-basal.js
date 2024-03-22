@@ -760,9 +760,6 @@ var determine_basal = function determine_basal(glucose_status, currenttemp, iob_
     //    }
     //}
     var loop_wanted_smb = loop_smb(microBolusAllowed, profile, iob_data, use_iobTH, iobTHvirtual/iobTHtolerance*100.0);
-    //if (typeof (profile.meal_addon) !== 'undefined') {  // gz pilot
-    //    if ( use_iobTH && profile.meal_addon>0 && loop_wanted_smb=="fullLoop" ) {
-    //        iobTHvirtual = iobTHvirtual / 2;            // half power w/o Full Loop
     var enableSMB = false;
     if (microBolusAllowed && loop_wanted_smb != "AAPS") {
         if ( loop_wanted_smb=="enforced" || loop_wanted_smb=="fullLoop" ) {              // otherwise FL switched SMB off
@@ -1404,13 +1401,7 @@ var determine_basal = function determine_basal(glucose_status, currenttemp, iob_
 
     // mod V12: new algorithm for reducing insReq below target
     //  virtually increased target allows negative insReq to be more negative and thus reduce profile base rate
-    var insReqOffset;
-    if ( bg < target_bg && target_bg < 95 ) {
-        insReqOffset = round((1-bg/target_bg) *5*8, 1); // example bg=60, target=80 --> insReqOffset=10
-        console.error("gz Cap insulinReq = True; virtual target", insReqOffset);
-    } else {
-        insReqOffset = 0;
-    }
+    var insReqOffset = 0;
 
     if (eventualBG < min_bg) { // if eventual BG is below target:
         rT.reason += "Eventual BG " + convert_bg(eventualBG, profile) + " < " + convert_bg(min_bg, profile);
@@ -1593,16 +1584,6 @@ var determine_basal = function determine_basal(glucose_status, currenttemp, iob_
                 console.error("Loop capped SMB at", round(microBolus,2), "to not exceed", iobTHtolerance, "% of effective iobTH", round(iobTHvirtual/iobTHtolerance*100,2)+"U");
             }
 
-            if (bg < max_bg+10) {
-                var lessSMBRatio =                   2*(1 - bg/(max_bg+10));
-                //console.error("gz debug lessSMBRatio", lessSMBRatio);
-                lessSMBRatio     =       Math.min(1, lessSMBRatio          );
-                //console.error("gz debug lessSMBRatio", lessSMBRatio);
-                lessSMBRatio     = round(lessSMBRatio                       , 2);
-                //r lessSMBRatio = round(Math.min(1, 2*(1 - bg/(max_bg+10))), 2);
-                microBolus = microBolus * (1-lessSMBRatio);
-                console.error("gz SMB reduced by " + 100*lessSMBRatio + "% because bg("+bg+") is below upper target("+max_bg+")+10");
-            }
             microBolus = Math.floor(microBolus*roundSMBTo)/roundSMBTo;
             // calculate a long enough zero temp to eventually correct back up to target
             var smbTarget = target_bg;
