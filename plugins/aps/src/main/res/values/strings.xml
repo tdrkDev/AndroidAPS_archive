@@ -265,8 +265,8 @@
     <string name="key_inactivity_idle_start" translatable="false">inactivity_idle_start</string>
     <string name="key_inactivity_idle_end" translatable="false">inactivity_idle_end</string>
 
-    <string name="key_parabolaSourceDataType">parabolaSourceType</string>
     <!--
+    <string name="key_parabolaSourceDataType">parabolaSourceType</string>
     <string name="key_fslMinFitMinutes">fslFitMinutes</string>
     -->
 </resources>
