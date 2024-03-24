@@ -162,7 +162,7 @@ function loop_smb(microBolusAllowed, profile, iob_data, useIobTh, iobThEffective
             //} else {
             //    msg = "maxIOB "+ iobTH_reduction_ratio;
             //}
-            console.error("SMB disabled by Full Loop logic: effective iobTH "+iobThEffective+" is more than iob "+iob_data.iob);
+            console.error("SMB disabled by Full Loop logic: iob "+iob_data.iob+" is above effective iobTH "+iobThEffective);
             console.error("Loop power level temporarily capped");
             return "iobTH";
         } else {
