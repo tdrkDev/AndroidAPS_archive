@@ -142,7 +142,7 @@ function loop_smb(microBolusAllowed, profile, iob_data, useIobTh, iobThEffective
             if ( iobThPercent == iobThUser ) {
                 console.error("User setting iobTH="+iobThUser+"% not modulated");
             } else {
-                console.error("User setting iobTH="+iobThUser+"% modulated to "+iobThPercent+"% or "+round(iobThEffective,1)+"U") ;
+                console.error("User setting iobTH="+iobThUser+"% modulated to "+round(iobThPercent,2)+"% or "+round(iobThEffective,2)+"U") ;
                 console.error("  due to profile % and/or exercise/activity mode");
             }
         } else {

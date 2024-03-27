@@ -335,7 +335,7 @@
                 android:selectAllOnFocus="true"
                 android:singleLine="true"
                 android:title="@string/openapsama_autoISF_max"
-                validate:floatmaxNumber="5"
+                validate:floatmaxNumber="3"
                 validate:floatminNumber="1"
                 validate:testType="floatNumericRange" />
 
