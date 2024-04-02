@@ -1621,7 +1621,7 @@ var determine_basal = function determine_basal(glucose_status, currenttemp, iob_
             var nextBolusSeconds = round((SMBInterval - lastBolusAge) * 60, 0) % 60;
             //console.error(naive_eventualBG, insulinReq, worstCaseInsulinReq, durationReq);
             console.error("naive_eventualBG",naive_eventualBG+",",durationReq+"m "+smbLowTempReq+"U/h temp needed; last bolus",lastBolusAge+"m ago; maxBolus: "+maxBolus);
-            if (lastBolusAge > SMBInterval) {
+            if (lastBolusAge > SMBInterval-0.2) {   // 12s tolerance
                 if (microBolus > 0) {
                     rT.units = microBolus;
                     rT.reason += "Microbolusing " + microBolus + "U. ";
