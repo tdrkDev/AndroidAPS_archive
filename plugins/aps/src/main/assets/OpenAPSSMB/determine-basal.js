@@ -1541,7 +1541,7 @@ var determine_basal = function determine_basal(glucose_status, currenttemp, iob_
         rT.insulinReq = insulinReq;
         //console.error(iob_data.lastBolusTime);
         // minutes since last bolus
-        var lastBolusAge = round(( new Date(systemTime).getTime() - iob_data.lastBolusTime ) / 60000,1);
+        var lastBolusAge = round(( new Date(systemTime).getTime() - iob_data.lastBolusTime ) / 1000,1); // was in minutes
         //console.error(lastBolusAge);
         //console.error(profile.temptargetSet, target_bg, rT.COB);
         // only allow microboluses with COB or low temp targets, or within DIA hours of a bolus
@@ -1611,17 +1611,20 @@ var determine_basal = function determine_basal(glucose_status, currenttemp, iob_
             }
             rT.reason += ". ";
 
+            var lastBolusAge = round(( new Date(systemTime).getTime() - iob_data.lastBolusTime ) / 1000,1); // was in minutes
+            //console.error("lastBolusAge", lastBolusAge+"s");
             //allow SMBs every 3 minutes by default
             var SMBInterval = 3;
             if (profile.SMBInterval) {
                 // allow SMBIntervals between 1 and 10 minutes
                 SMBInterval = Math.min(10,Math.max(1,profile.SMBInterval));
             }
-            var nextBolusMins = round(SMBInterval-lastBolusAge,0);
-            var nextBolusSeconds = round((SMBInterval - lastBolusAge) * 60, 0) % 60;
+            SMBInterval = SMBInterval*60;
+            var nextBolusMins = round((SMBInterval-lastBolusAge) / 60, 0);
+            var nextBolusSeconds = round((SMBInterval - lastBolusAge), 0) % 60;
             //console.error(naive_eventualBG, insulinReq, worstCaseInsulinReq, durationReq);
-            console.error("naive_eventualBG",naive_eventualBG+",",durationReq+"m "+smbLowTempReq+"U/h temp needed; last bolus",lastBolusAge+"m ago; maxBolus: "+maxBolus);
-            if (lastBolusAge > SMBInterval-0.2) {   // 12s tolerance
+            console.error("naive_eventualBG",naive_eventualBG+",",durationReq+"m "+smbLowTempReq+"U/h temp needed; last bolus",round(lastBolusAge/60,0)+"m ago; maxBolus: "+maxBolus);
+            if (lastBolusAge > SMBInterval-12) {   // 12s tolerance
                 if (microBolus > 0) {
                     rT.units = microBolus;
                     rT.reason += "Microbolusing " + microBolus + "U. ";
