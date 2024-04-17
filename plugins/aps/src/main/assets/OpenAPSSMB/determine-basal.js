@@ -275,7 +275,11 @@ function withinISFlimits(liftISF, minISFReduction, maxISFReduction, sensitivityR
         origin_sens = "including (in-)activity detection impact";
     } else if ( liftISF >= 1 ) {
         final_ISF = Math.max(liftISF, sensitivityRatio);
-        if (liftISF >= sensitivityRatio)            { origin_sens = "";}        // autoISF dominates
+        if (liftISF >= sensitivityRatio) {
+            origin_sens = "";                                                   // autoISF dominates
+        } else {
+            origin_sens = "from low TT modifier";                               // low TT lowers sensitivity dominates
+        }
     } else {
         final_ISF = Math.min(liftISF, sensitivityRatio);
         if (liftISF <= sensitivityRatio)            { origin_sens = "";}        // autoISF dominates
