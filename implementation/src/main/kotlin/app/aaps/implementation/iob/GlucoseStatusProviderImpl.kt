@@ -12,7 +12,6 @@ import app.aaps.core.main.iob.asRounded
 import app.aaps.core.main.iob.log
 import dagger.Reusable
 import javax.inject.Inject
-import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.math.roundToInt
 import kotlin.math.roundToLong
@@ -188,12 +187,8 @@ class GlucoseStatusProviderImpl @Inject constructor(
         }
         aapsLogger.debug(LTag.GLUCOSE, "BgReadings stamp=$fslDate; raw=$fslRaw; value=$fslValue; " +
             "BgBucketed value=$nowValue; recalc=$recalc; smooth=$smooth; filled=$filled; CGM=$cgm; Libre=$fslReally; fitDura=$fslMinDur")
-        //if ( abs(fslFitSrc) == 1 ) {
-        //    sizeRecords = orig.size
-        //}
 
         if (sizeRecords > 3) {
-            //double corrMin = 0.90;              // go backwards until the correlation coefficient goes below
             var sy   = 0.0 // y
             var sx   = 0.0 // x
             var sx2  = 0.0 // x^2
@@ -215,25 +210,11 @@ class GlucoseStatusProviderImpl @Inject constructor(
                     n += 1
                     val thenDate: Long
                     var bg: Double
-                    //if (fslReally && fslFitSrc == 1) {
-                    //    use1MinuteSmooth = true
-                    //    val then = orig[i]
-                    //    thenDate = then.timestamp
-                    //    bg = then.raw ?: then.value
-                    //    if (bg == 0.0) {            // happended sometimes, use unsmoothed instead
-                    //        bg = then.value
-                    //    }
-                    //    bg = bg / scaleBg
-                    //} else
                     if (use1MinuteRaw) {
                         val then = orig[i]
                         thenDate = then.timestamp
                         bg = then.value / scaleBg
 
-                    //} else if (fslFitSrc < -1) {
-                    //    val then = data[i]
-                    //    thenDate = then.timestamp
-                    //    bg = then.value / scaleBg
                     } else {    // all other including standard 5m CGM smoothed
                         val then = data[i]
                         thenDate = then.timestamp
@@ -285,17 +266,6 @@ class GlucoseStatusProviderImpl @Inject constructor(
                         //var smoothBg: Double
                         var rawBg: Double
                         for (j in 0..i) {
-                            //if (fslReally && fslFitSrc==1) {
-                            //    val before = orig[j]
-                            //    smoothBg = before.raw ?: before.value
-                            //    if (smoothBg==0.0) {
-                            //        smoothBg = before.value     // fall back to raw if smooth not available
-                            //    }
-                            //    sSquares += (smoothBg / scaleBg - yMean).pow(2.0)
-                            //    val deltaT: Double = (before.timestamp - time0) / 1000.0 / scaleTime
-                            //    val bgj: Double = a * deltaT.pow(2.0) + b * deltaT + c
-                            //    sResidualSquares += (smoothBg / scaleBg - bgj).pow(2.0)
-                            //} else
                             if (use1MinuteRaw) {
                                 val before = orig[j]
                                 rawBg = before.value
@@ -303,12 +273,6 @@ class GlucoseStatusProviderImpl @Inject constructor(
                                 val deltaT: Double = (before.timestamp - time0) / 1000.0 / scaleTime
                                 val bgj: Double = a * deltaT.pow(2.0) + b * deltaT + c
                                 sResidualSquares += (rawBg / scaleBg - bgj).pow(2.0)
-                            //} else if (fslFitSrc<-1) {
-                            //    val before = data[j]
-                            //    sSquares += (before.value / scaleBg - yMean).pow(2.0)
-                            //    val deltaT: Double = (before.timestamp - time0) / 1000.0 / scaleTime
-                            //    val bgj: Double = a * deltaT.pow(2.0) + b * deltaT + c
-                            //    sResidualSquares += (before.value / scaleBg - bgj).pow(2.0)
                             } else {                            // default case anyway
                                 val before = data[j]
                                 sSquares += (before.recalculated / scaleBg - yMean).pow(2.0)
