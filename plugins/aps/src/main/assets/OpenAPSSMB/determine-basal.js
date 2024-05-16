@@ -1545,8 +1545,6 @@ var determine_basal = function determine_basal(glucose_status, currenttemp, iob_
         rT.insulinReq = insulinReq;
         //console.error(iob_data.lastBolusTime);
         // minutes since last bolus
-        var lastBolusAge = round(( new Date(systemTime).getTime() - iob_data.lastBolusTime ) / 1000,1); // was in minutes
-        //console.error(lastBolusAge);
         //console.error(profile.temptargetSet, target_bg, rT.COB);
         // only allow microboluses with COB or low temp targets, or within DIA hours of a bolus
         if (microBolusAllowed && enableSMB && bg > threshold) {
@@ -1615,7 +1613,7 @@ var determine_basal = function determine_basal(glucose_status, currenttemp, iob_
             }
             rT.reason += ". ";
 
-            var lastBolusAge = round(( new Date(systemTime).getTime() - iob_data.lastBolusTime ) / 1000,1); // was in minutes
+            var lastBolusAge = ( new Date(systemTime).getTime() - iob_data.lastBolusTime ) / 1000; // now exact seconds, was in rounded minutes
             //console.error("lastBolusAge", lastBolusAge+"s");
             //allow SMBs every 3 minutes by default
             var SMBInterval = 3;
@@ -1624,8 +1622,6 @@ var determine_basal = function determine_basal(glucose_status, currenttemp, iob_
                 SMBInterval = Math.min(10,Math.max(1,profile.SMBInterval));
             }
             SMBInterval = SMBInterval*60;
-            var nextBolusMins = round((SMBInterval-lastBolusAge) / 60, 0);
-            var nextBolusSeconds = round((SMBInterval - lastBolusAge), 0) % 60;
             //console.error(naive_eventualBG, insulinReq, worstCaseInsulinReq, durationReq);
             console.error("naive_eventualBG",naive_eventualBG+",",durationReq+"m "+smbLowTempReq+"U/h temp needed; last bolus",round(lastBolusAge/60,0)+"m ago; maxBolus: "+maxBolus);
             if (lastBolusAge > SMBInterval-12) {   // 12s tolerance
@@ -1634,7 +1630,11 @@ var determine_basal = function determine_basal(glucose_status, currenttemp, iob_
                     rT.reason += "Microbolusing " + microBolus + "U. ";
                 }
             } else {
-                rT.reason += "Waiting " + nextBolusMins + "m " + nextBolusSeconds + "s to microbolus again. ";
+                var nextBolusMins = (SMBInterval-lastBolusAge) / 60 ;
+                var nextBolusSeconds = (SMBInterval - lastBolusAge) % 60;
+                var waitingSeconds = round(nextBolusSeconds,0) % 60;
+                var waitingMins = round(nextBolusMins-waitingSeconds/60, 0);
+                    rT.reason += "Waiting " + waitingMins + "m " + waitingSeconds + "s to microbolus again. ";
             }
             //rT.reason += ". ";
 
