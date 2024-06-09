@@ -8,8 +8,8 @@ accelerating/decelerating BG, BG plateau). autoISF has many different settings t
 However, it is important to start with well-tested basal rate and settings for insulin sensitivity and carb ratios.
 
 ## Where to find documentation about autoISF
-* Please visit ga-zelle’s repository [GitHub - ga-zelle/autoISF](https://github.com/ga-zelle/autoISF/tree/A3.2.0.4_ai3.0.1).
-  The [**Quick Guide (bzw. Kurzanleitung)**](https://github.com/ga-zelle/autoISF/blob/A3.2.0.4_ai3.0.1/autoISF3.0.1_Quick_Guide.pdf) provides an overview of autoISF and its features
+Please visit ga-zelle’s repository [GitHub - ga-zelle/autoISF](https://github.com/ga-zelle/autoISF/tree/A3.2.0.4_ai3.0.1).
+  The [**Quick Guide**](https://github.com/ga-zelle/autoISF/blob/A3.2.0.4_ai3.0.1/autoISF3.0.1_Quick_Guide.pdf)  (bzw. [**Kurzanleitung**](https://github.com/ga-zelle/autoISF/blob/A3.2.0.4_ai3.0.1/autoISF3.0.1_Kurzanleitung.pdf)) provide an overview of autoISF and its features
  
 
 ## Why do I get AutoISF here and not at ga-zelle's Repo?
@@ -22,11 +22,12 @@ However, it is important to start with well-tested basal rate and settings for i
 * This branch https://github.com/T-o-b-i-a-s/AndroidAPS/tree/3.2.0.4-ai3.0.1 uses
   AndroidAPS 3.2.0.4 (which is the `master` version on the official [Nightscout AndroidAPS]
   (https://github.com/nightscout/AndroidAPS)
-  repo by the time when this text was written) as a base and adds autoISF 3.0 to it.
+  repo by the time when this text was written) as a base and adds autoISF 3.0.1 to it.
 
-## What's new in AutoISF Version 3.0.1 when compared to 3.0
-* Reduced and simplified number of autoisf settings
-* Support for 1-minute glucose values from Fresstyle Libre 3
+## What's new in autoISF Version 3.0.1 when compared to 3.0
+Details of the new features are listed in the standard documents shown above. Important examples are
+* Support for 1-minute glucose values from Freestyle Libre 2 or 3
+* Reduced and simplified number of autoISF settings
 
 ## How to build this branch in Android Studio
 1. Close any currently open projects in Android Studio
