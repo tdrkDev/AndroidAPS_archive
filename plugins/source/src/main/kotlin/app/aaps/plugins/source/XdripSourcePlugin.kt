@@ -43,7 +43,7 @@ class XdripSourcePlugin @Inject constructor(
         .mainType(PluginType.BGSOURCE)
         .fragmentClass(BGSourceFragment::class.java.name)
         .pluginIcon((app.aaps.core.main.R.drawable.ic_blooddrop_48))
-        .preferencesId(R.xml.pref_dexcom)
+        .preferencesId(R.xml.pref_xdrip)
         .pluginName(R.string.source_xdrip)
         .description(R.string.description_source_xdrip),
     aapsLogger, rh, injector
@@ -54,7 +54,12 @@ class XdripSourcePlugin @Inject constructor(
 
     override fun advancedFilteringSupported(): Boolean = advancedFiltering
 
-    private fun detectSource(glucoseValue: GlucoseValue) {
+    private fun detectSource(glucoseValue: GlucoseValue, overrideFiltering: Boolean) {
+        if (overrideFiltering) {
+            advancedFiltering = true
+            return
+        }
+
         advancedFiltering = arrayOf(
             GlucoseValue.SourceSensor.DEXCOM_NATIVE_UNKNOWN,
             GlucoseValue.SourceSensor.DEXCOM_G6_NATIVE,
@@ -122,7 +127,7 @@ class XdripSourcePlugin @Inject constructor(
                 .blockingGet()
                 .also { result ->
                     result.all().forEach {
-                        xdripSourcePlugin.detectSource(it)
+                        xdripSourcePlugin.detectSource(it, sp.getBoolean(R.string.key_xdrip_af_on_non_dexcom, false))
                         aapsLogger.debug(LTag.DATABASE, "Inserted bg $it")
                     }
                     result.sensorInsertionsInserted.forEach {

@@ -4,6 +4,7 @@
     <string name="key_dexcom_log_ns_sensor_change" translatable="false">dexcom_lognssensorchange</string>
     <string name="key_last_processed_glunovo_timestamp" translatable="false">last_processed_glunovo_timestamp</string>
     <string name="key_last_processed_intelligo_timestamp" translatable="false">last_processed_intelligo_timestamp</string>
+    <string name="key_xdrip_af_on_non_dexcom" translatable="false">xdrip_advancedfiltering_on_non_dexcom</string>
 
     <string name="ns_client_bg">NSClient BG</string>
     <string name="ns_client_bg_short">NS BG</string>
@@ -41,6 +42,8 @@
     <string name="bgsource_upload">BG upload settings</string>
     <string name="dexcom_log_ns_sensor_change_title">Log sensor change to NS</string>
     <string name="dexcom_log_ns_sensor_change_summary">Create event \"Sensor Change\" in NS automatically on sensor start</string>
+    <string name="xdrip_af_on_non_dexcom_title">Always promote advanced filtering</string>
+    <string name="xdrip_af_on_non_dexcom_summary">[DANGEROUS] Promote any xDrip+ BG source as supporting advanced filtering. Allows you to use SMB reliably not only on Dexcom.</string>
     <string name="direction">direction</string>
 
 

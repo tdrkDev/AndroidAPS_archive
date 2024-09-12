@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        android:key="@string/key_dexcom_settings"
+        android:title="@string/bgsource_upload"
+        app:initialExpandedChildrenCount="0">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="@string/key_do_ns_upload"
+            android:title="@string/do_ns_upload_title" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="@string/key_dexcom_log_ns_sensor_change"
+            android:summary="@string/dexcom_log_ns_sensor_change_summary"
+            android:title="@string/dexcom_log_ns_sensor_change_title" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="@string/key_xdrip_af_on_non_dexcom"
+            android:summary="@string/xdrip_af_on_non_dexcom_summary"
+            android:title="@string/xdrip_af_on_non_dexcom_title" />
+
+    </PreferenceCategory>
+
+</androidx.preference.PreferenceScreen>
