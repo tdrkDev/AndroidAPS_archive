@@ -43,5 +43,7 @@
     <string name="direction">direction</string>
     <string name="bg_generation_interval_minutes">BG generation interval minutes</string>
 
-
+    <string name="xdrip_dangerous">[DANGEROUS] xDrip+ specific</string>
+    <string name="xdrip_dangerous_af_title">Always promote advanced filtering</string>
+    <string name="xdrip_dangerous_af_summary">Allows SMBs being always enabled regardless of CGM whitelist</string>
 </resources>
