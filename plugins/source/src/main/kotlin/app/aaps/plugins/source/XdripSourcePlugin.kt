@@ -43,7 +43,7 @@ class XdripSourcePlugin @Inject constructor(
         .mainType(PluginType.BGSOURCE)
         .fragmentClass(BGSourceFragment::class.java.name)
         .pluginIcon((app.aaps.core.main.R.drawable.ic_blooddrop_48))
-        .preferencesId(R.xml.pref_xdrip)
+        .preferencesId(R.xml.pref_source_xdrip)
         .pluginName(R.string.source_xdrip)
         .description(R.string.description_source_xdrip),
     aapsLogger, rh, injector
